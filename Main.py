@@ -6,8 +6,8 @@ import numpy as np
 import tweepy
 
  
-tweets = pd.read_csv('Training.csv')
-tweets.columns = ['Polarity', 'Tweet_ID', 'Date', 'Query', 'User_name', 'Tweet']
+#tweets = pd.read_csv('Training.csv')
+#tweets.columns = ['Polarity', 'Tweet_ID', 'Date', 'Query', 'User_name', 'Tweet']
 
 # Function To Extract Text of the Tweets
 def cleantweets(tweet_text):
@@ -17,7 +17,7 @@ def cleantweets(tweet_text):
     tweet_text = re.sub(r'https?:\/\/\S+', '', tweet_text) # For Removing Hyperlinks
     return tweet_text
 
-tweets['Tweet'] = tweets['Tweet'].apply(cleantweets)
+#tweets['Tweet'] = tweets['Tweet'].apply(cleantweets)
 
 # function to print sentiments
 # of the sentence.
@@ -72,12 +72,12 @@ search_words = '#RobertDeNiro'
 date_since = '2018-10-1'
 
 #posts = tweepy.Cursor(authentication().search, q = search_words, lang = "en", since = date_since).items(1)
-post = authentication().user_timeline(screen_name = 'ElonMusk', count = 1, lang = 'en')
+posts = authentication().user_timeline(screen_name = 'ElonMusk', count = 100, lang = 'en')
 
 
 
 # Driver code
 if __name__ == "__main__" :
-    sentiment_scores(cleantweets(post[0].text))
+    sentiment_scores(cleantweets(posts[1].text))
     #sentiment_scores(np.random.choice(tweets['Tweet']))
     
