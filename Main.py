@@ -24,6 +24,9 @@ def cleantweets(tweet_text):
 
 def sentiment_scores(tweet):
  
+    result = ''
+
+ 
     # Create a SentimentIntensityAnalyzer object.
     sid_obj = SentimentIntensityAnalyzer()
  
@@ -31,23 +34,18 @@ def sentiment_scores(tweet):
     # object gives a sentiment dictionary.
     # which contains pos, neg, neu, and compound scores.
     sentiment_dict = sid_obj.polarity_scores(tweet)
-    print("Input Sentence is: ", tweet) 
-    print("Overall sentiment dictionary is : ", sentiment_dict)
-    print("sentence was rated as ", sentiment_dict['neg']*100, "% Negative")
-    print("sentence was rated as ", sentiment_dict['neu']*100, "% Neutral")
-    print("sentence was rated as ", sentiment_dict['pos']*100, "% Positive")
- 
-    print("Sentence Overall Rated As", end = " ")
- 
+    
     # decide sentiment as positive, negative and neutral
     if sentiment_dict['compound'] >= 0.05 :
-        print("Positive")
+        result = 'Positive'
  
     elif sentiment_dict['compound'] <= - 0.05 :
-        print("Negative")
+        result = 'Negative'
  
     else :
-        print("Neutral")
+        result = 'Neutral'
+    
+    return tweet, result
 
 
 # To Scrape Twitter
@@ -68,16 +66,42 @@ def authentication():
 
 authentication()
 
-search_words = '#RobertDeNiro'
-date_since = '2018-10-1'
+    
+def create_dict():
+    posts = authentication().user_timeline(screen_name = 'EmmaWatson', count = 100, lang = 'en')
 
-#posts = tweepy.Cursor(authentication().search, q = search_words, lang = "en", since = date_since).items(1)
-posts = authentication().user_timeline(screen_name = 'ElonMusk', count = 100, lang = 'en')
+    tweets_dict = {'Positive': [], 'Negative': [], 'Neutral': []}
+
+    for i in range(len(posts[0:99])):
+        tweet, sentiment = sentiment_scores(cleantweets(posts[i].text))
+        tweets_dict[sentiment].append(tweet)
+    
+    return tweets_dict
+
+def create_mid_dataframe():
+    tweets_df = pd.DataFrame.from_dict(create_dict(), orient = 'index')
+    tweets_df = tweets_df.transpose()
+
+    return tweets_df
+
+
+def Build_Main_dataframe():
+    
+    tweets_main_df = pd.read_csv('Tweets.csv')
+    tweets_main_df = tweets_main_df.append(create_mid_dataframe(), ignore_index = True)
+    tweets_main_df.to_csv('Tweets.csv')
+    return tweets_main_df
+    
+
 
 
 
 # Driver code
 if __name__ == "__main__" :
-    sentiment_scores(cleantweets(posts[1].text))
+    #sentiment_scores(cleantweets(posts[1].text))
     #sentiment_scores(np.random.choice(tweets['Tweet']))
+    #init_main_df()
+    Build_Main_dataframe().info()
+
+
     
