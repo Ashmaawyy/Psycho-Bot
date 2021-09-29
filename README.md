@@ -1,0 +1,11 @@
+# Project Walkthroug
+- First things first I looked at the data prvided for training the model in order to understand it.
+- Then I cleaned the tweets to extract only the text of the tweet.
+- I noticed from the exploratory analysis that the training dataset is biased :) .
+- After research I found that the VERD algorithm is the best fit for the task, so I used it to predict the sentiments of the tweets. (Now it can be used for the required study).
+- I then put the scraping peice of code for scraping data directly from twitter and cleaning it then applying the analysis on it.
+- I Stored the tweets and the results associated with each tweet in a dataframe called "tweet_df".
+- The "Main.py" still gets a detailed report on single tweets, while the dataframe is generated from the notebook.
+- The algorithm is an open-source algorithm and the python code for it is here:  https://www.geeksforgeeks.org/python-sentiment-analysis-using-vader/ 
+- The research paper that lead me to the algorithm is also provided here:  https://www.nature.com/articles/s41598-021-86510-w 
+- The Search by keyword for tweets peice of code is provided here:  https://www.earthdatascience.org/courses/use-data-open-source-python/intro-to-apis/twitter-data-in-python/
