@@ -85,7 +85,7 @@ def create_mid_dataframe():
     return tweets_df
 
 
-def Build_Main_dataframe():
+def Build_Main_Dataframe():
     
     tweets_main_df = pd.read_csv('Tweets.csv')
     tweets_main_df = tweets_main_df.append(create_mid_dataframe(), ignore_index = True)
@@ -101,7 +101,7 @@ if __name__ == "__main__" :
     #sentiment_scores(cleantweets(posts[1].text))
     #sentiment_scores(np.random.choice(tweets['Tweet']))
     #init_main_df()
-    Build_Main_dataframe().info()
+    Build_Main_Dataframe().info()
 
 
     
