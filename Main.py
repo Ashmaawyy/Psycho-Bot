@@ -82,7 +82,7 @@ def Build_Main_Dataframe():
     tweets_main_df.to_csv('Tweets.csv')
     return tweets_main_df
 
-def Clear_Created_csv():
+def clear_created_csv():
     created_csv = pd.read_csv('Tweets.csv')
     created_csv.drop(created_csv.index, inplace = True)
     created_csv.to_csv('Tweets.csv')
@@ -93,11 +93,9 @@ def Clear_Created_csv():
 
 # Driver code
 if __name__ == "__main__" :
-    #sentiment_scores(cleantweets(posts[1].text))
-    #sentiment_scores(np.random.choice(tweets['Tweet']))
-    #init_main_df()
-    #Build_Main_Dataframe().info()
-    Clear_Created_csv()
+
+    Build_Main_Dataframe().info()
+    #Clear_Created_csv()
 
 
     
