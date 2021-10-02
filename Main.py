@@ -5,11 +5,7 @@ import numpy as np
 #np.random.seed(42)
 import tweepy
 
- 
-#tweets = pd.read_csv('Training.csv')
-#tweets.columns = ['Polarity', 'Tweet_ID', 'Date', 'Query', 'User_name', 'Tweet']
 
-# Function To Extract Text of the Tweets
 def cleantweets(tweet_text):
     tweet_text = re.sub(r'@[A-Za-z0-9]+', '', tweet_text) # For Removing @ Mentions
     tweet_text = re.sub(r'#', '', tweet_text) # For Removing Hashtags
@@ -17,10 +13,6 @@ def cleantweets(tweet_text):
     tweet_text = re.sub(r'https?:\/\/\S+', '', tweet_text) # For Removing Hyperlinks
     return tweet_text
 
-#tweets['Tweet'] = tweets['Tweet'].apply(cleantweets)
-
-# function to print sentiments
-# of the sentence.
 
 def sentiment_scores(tweet):
  
@@ -48,8 +40,6 @@ def sentiment_scores(tweet):
     return tweet, result
 
 
-# To Scrape Twitter
-
 
 def authentication():
 
@@ -71,18 +61,18 @@ def create_dict():
     posts = authentication().user_timeline(screen_name = 'EmmaWatson', count = 100, lang = 'en')
 
     tweets_dict = {'Positive': [], 'Negative': [], 'Neutral': []}
-
-    for i in range(len(posts[0:99])):
+    
+    for i in range(len(posts)):
         tweet, sentiment = sentiment_scores(cleantweets(posts[i].text))
         tweets_dict[sentiment].append(tweet)
     
     return tweets_dict
 
 def create_mid_dataframe():
-    tweets_df = pd.DataFrame.from_dict(create_dict(), orient = 'index')
-    tweets_df = tweets_df.transpose()
+    tweets_mid_df = pd.DataFrame.from_dict(create_dict(), orient = 'index')
+    tweets_mid_df = tweets_mid_df.transpose()
 
-    return tweets_df
+    return tweets_mid_df
 
 
 def Build_Main_Dataframe():
