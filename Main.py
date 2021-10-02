@@ -7,6 +7,7 @@ import tweepy
 
 
 def cleantweets(tweet_text):
+
     tweet_text = re.sub(r'@[A-Za-z0-9]+', '', tweet_text) # For Removing @ Mentions
     tweet_text = re.sub(r'#', '', tweet_text) # For Removing Hashtags
     tweet_text = re.sub(r'RT[\s]+', '', tweet_text) # For Removing Retweets
@@ -18,8 +19,6 @@ def sentiment_scores(tweet):
  
     result = ''
 
- 
-    # Create a SentimentIntensityAnalyzer object.
     sid_obj = SentimentIntensityAnalyzer()
  
     # polarity_scores method of SentimentIntensityAnalyzer
@@ -58,6 +57,7 @@ authentication()
 
     
 def create_dict():
+    
     posts = authentication().user_timeline(screen_name = 'EmmaWatson', count = 100, lang = 'en')
 
     tweets_dict = {'Positive': [], 'Negative': [], 'Neutral': []}
@@ -69,6 +69,7 @@ def create_dict():
     return tweets_dict
 
 def create_mid_dataframe():
+
     tweets_mid_df = pd.DataFrame.from_dict(create_dict(), orient = 'index')
     tweets_mid_df = tweets_mid_df.transpose()
 
@@ -83,6 +84,7 @@ def Build_Main_Dataframe():
     return tweets_main_df
 
 def clear_created_csv():
+
     created_csv = pd.read_csv('Tweets.csv')
     created_csv.drop(created_csv.index, inplace = True)
     created_csv.to_csv('Tweets.csv')
