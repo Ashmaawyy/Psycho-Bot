@@ -53,7 +53,7 @@ def authentication():
     api = tweepy.API(autheticate, wait_on_rate_limit= True)
     return api
 
-authentication()
+#authentication()
 
     
 def create_dict():
@@ -97,7 +97,7 @@ def clear_created_csv():
 if __name__ == "__main__" :
 
     Build_Main_Dataframe().info()
-    #Clear_Created_csv()
+    #clear_created_csv()
 
 
     
