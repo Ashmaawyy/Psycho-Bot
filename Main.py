@@ -80,14 +80,14 @@ def Build_Main_Dataframe():
     
     tweets_main_df = pd.read_csv('Tweets.csv')
     tweets_main_df = tweets_main_df.append(create_mid_dataframe(), ignore_index = True)
-    tweets_main_df.to_csv('Tweets.csv')
+    tweets_main_df.to_csv('Tweets.csv', index_label = False)
     return tweets_main_df
 
 def clear_created_csv():
 
     created_csv = pd.read_csv('Tweets.csv')
     created_csv.drop(created_csv.index, inplace = True)
-    created_csv.to_csv('Tweets.csv')
+    created_csv.to_csv('Tweets.csv', index_label = False)
     
 
 
